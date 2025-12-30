@@ -1,0 +1,125 @@
+{
+  "results": {
+    "full_system": {
+      "config": {
+        "name": "full_system"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "f1_score": 0.03943839903958751,
+        "evidence_precision": 0.6270483726273883,
+        "hallucination_rate": 0.22,
+        "retrieval_decision_accuracy": 0.06,
+        "unnecessary_retrieval_rate": 0.94,
+        "missed_retrieval_rate": 0.0,
+        "avg_retrieval_calls": 1.0,
+        "total_retrieval_calls": 50,
+        "avg_latency": 26.62234224319458,
+        "total_latency": 1331.117112159729
+      },
+      "num_samples": 50
+    },
+    "no_selective_retrieval": {
+      "config": {
+        "retrieval": {
+          "use_selective_retrieval": false
+        },
+        "name": "no_selective_retrieval"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "f1_score": 0.03943839903958751,
+        "evidence_precision": 0.6270483726273883,
+        "hallucination_rate": 0.22,
+        "retrieval_decision_accuracy": 0.06,
+        "unnecessary_retrieval_rate": 0.94,
+        "missed_retrieval_rate": 0.0,
+        "avg_retrieval_calls": 1.0,
+        "total_retrieval_calls": 50,
+        "avg_latency": 0.11468713283538819,
+        "total_latency": 5.734356641769409
+      },
+      "num_samples": 50
+    },
+    "no_grounding": {
+      "config": {
+        "grounding": {
+          "relevance_threshold": 0.0,
+          "consistency_threshold": 0.0
+        },
+        "name": "no_grounding"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "f1_score": 0.03943839903958751,
+        "evidence_precision": 0.6270483726273883,
+        "hallucination_rate": 0.22,
+        "retrieval_decision_accuracy": 0.06,
+        "unnecessary_retrieval_rate": 0.94,
+        "missed_retrieval_rate": 0.0,
+        "avg_retrieval_calls": 1.0,
+        "total_retrieval_calls": 50,
+        "avg_latency": 0.1077207374572754,
+        "total_latency": 5.3860368728637695
+      },
+      "num_samples": 50
+    }
+  },
+  "comparison": {
+    "baseline": "full_system",
+    "comparisons": {
+      "no_selective_retrieval": {
+        "metrics": {
+          "exact_match": 0.0,
+          "f1_score": 0.03943839903958751,
+          "evidence_precision": 0.6270483726273883,
+          "hallucination_rate": 0.22,
+          "retrieval_decision_accuracy": 0.06,
+          "unnecessary_retrieval_rate": 0.94,
+          "missed_retrieval_rate": 0.0,
+          "avg_retrieval_calls": 1.0,
+          "total_retrieval_calls": 50,
+          "avg_latency": 0.11468713283538819,
+          "total_latency": 5.734356641769409
+        },
+        "improvements": {
+          "f1_score": 0.0,
+          "evidence_precision": 0.0,
+          "hallucination_rate": 0.0,
+          "retrieval_decision_accuracy": 0.0,
+          "unnecessary_retrieval_rate": 0.0,
+          "avg_retrieval_calls": 0.0,
+          "total_retrieval_calls": 0.0,
+          "avg_latency": -99.56920720277832,
+          "total_latency": -99.56920720277832
+        }
+      },
+      "no_grounding": {
+        "metrics": {
+          "exact_match": 0.0,
+          "f1_score": 0.03943839903958751,
+          "evidence_precision": 0.6270483726273883,
+          "hallucination_rate": 0.22,
+          "retrieval_decision_accuracy": 0.06,
+          "unnecessary_retrieval_rate": 0.94,
+          "missed_retrieval_rate": 0.0,
+          "avg_retrieval_calls": 1.0,
+          "total_retrieval_calls": 50,
+          "avg_latency": 0.1077207374572754,
+          "total_latency": 5.3860368728637695
+        },
+        "improvements": {
+          "f1_score": 0.0,
+          "evidence_precision": 0.0,
+          "hallucination_rate": 0.0,
+          "retrieval_decision_accuracy": 0.0,
+          "unnecessary_retrieval_rate": 0.0,
+          "avg_retrieval_calls": 0.0,
+          "total_retrieval_calls": 0.0,
+          "avg_latency": -99.59537468013427,
+          "total_latency": -99.59537468013427
+        }
+      }
+    }
+  }
+}

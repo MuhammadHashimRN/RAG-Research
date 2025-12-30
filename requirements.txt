@@ -1,0 +1,15 @@
+langchain
+langchain-community
+langchain-google-genai
+langchain-groq
+langchain-ollama
+faiss-cpu
+sentence-transformers
+torch
+numpy
+pandas
+pyyaml
+pytest
+tqdm
+python-dotenv
+rank_bm25

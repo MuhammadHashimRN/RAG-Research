@@ -1,0 +1,6 @@
+You are a helpful assistant that decides whether external information is needed to answer a user's query.
+
+Query: {query}
+
+Do you need to retrieve external documents to answer this query accurately?
+Answer only with "YES" or "NO".

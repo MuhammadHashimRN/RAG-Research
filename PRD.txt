@@ -1,0 +1,318 @@
+Product Requirements Document (PRD)
+Project Title
+
+Selective Retrieval and Grounded Self-Refinement for Reliable Retrieval-Augmented Generation
+
+1. Background & Context
+
+Retrieval-Augmented Generation (RAG) is widely used to ground large language models with external knowledge. However, most RAG systems retrieve documents for every query, regardless of necessity. This static design results in:
+
+unnecessary retrieval cost and latency,
+
+noisy context injection,
+
+hallucinations when retrieved evidence is weak or contradictory.
+
+Recent work in agentic reasoning, tool usage, and self-refinement has shown promise, but these techniques are typically evaluated in isolation. There is a lack of systems-level research that integrates selective retrieval control, grounding validation, and iterative self-correction into a single, rigorously evaluated RAG architecture.
+
+2. Problem Statement
+
+Static RAG pipelines lack control and verification mechanisms. They cannot:
+
+Decide whether retrieval is necessary.
+
+Evaluate the adequacy of retrieved evidence.
+
+Detect and correct hallucinations caused by weak grounding.
+
+Quantify decision quality or failure modes.
+
+As a result, existing systems trade efficiency for reliability without measurable justification.
+
+3. Objectives
+Primary Objective
+
+Design and evaluate a model-agnostic agentic RAG system that improves factual reliability and efficiency through selective retrieval, grounding-aware validation, and self-refinement.
+
+Secondary Objectives
+
+Reduce unnecessary retrieval operations.
+
+Explicitly detect and manage failure cases.
+
+Provide transparent evaluation of decision quality.
+
+Maintain reproducibility using standard benchmarks and pretrained components.
+
+4. Success Criteria (Measurable)
+
+The system is considered successful if it satisfies all of the following:
+
+Matches or exceeds static RAG accuracy on benchmark tasks.
+
+Demonstrates a statistically significant reduction in retrieval calls.
+
+Reduces hallucination rate relative to static RAG.
+
+Achieves higher decision accuracy than heuristic baselines.
+
+Shows consistent gains in ablation studies.
+
+No state-of-the-art claims are required.
+
+5. Non-Goals (Explicit Exclusions)
+
+Training or fine-tuning large language models
+
+Reinforcement learning
+
+Robotics or embodied environments
+
+Novel datasets or benchmarks
+
+Claims of autonomy or intelligence
+
+This project is a systems and evaluation contribution, not a learning-theory contribution.
+
+6. System Overview
+
+The system is an agent-controlled RAG pipeline composed of six deterministic modules:
+
+Agent Controller
+
+Retrieval Decision Module
+
+Retrieval Engine
+
+Grounding & Feasibility Scoring
+
+Answer Generation
+
+Self-Refinement Loop
+
+Each module corresponds to established prior work and is independently ablated.
+
+7. Prior Work Integration (Explicit Mapping)
+Retrieval Backbone
+
+Motivated by REALM and implemented using Dense Passage Retrieval.
+
+Dual-encoder dense retrieval
+
+FAISS vector index
+
+Top-k passage retrieval
+
+No retriever training
+
+Agent Controller
+
+Based on ReAct.
+
+Thought → Action → Observation loop
+
+Deterministic step limits
+
+Explicit action logging
+
+Actions: retrieve, refine query, generate, abstain
+
+Tool / Retrieval Decision
+
+Inspired by Toolformer.
+
+Binary decision: retrieve vs no retrieve
+
+Decision inputs:
+
+model confidence estimate
+
+expected retrieval benefit
+
+prior failure signals
+
+Implemented via prompt-based control, not training
+
+Grounding & Feasibility Scoring
+
+Adapted from Do As I Can Not As I Say.
+
+Relevance score (query–passage alignment)
+
+Consistency score (inter-passage agreement)
+
+Contradiction detection
+
+Threshold-based acceptance or rejection
+
+Self-Refinement Loop
+
+Based on Self-Refine.
+
+Triggered only when grounding improves
+
+Bounded iteration budget
+
+Refinement success tracked
+
+Early termination on stagnation
+
+Long-Horizon Design Principles
+
+Structural inspiration from Voyager.
+
+Stable agent loop design
+
+Memory of past failures
+
+No embodiment or skill learning
+
+8. Detailed Workflow
+
+User query received
+
+Agent reasons about answerability
+
+Retrieval decision made
+
+If retrieval required:
+
+Dense retrieval executed
+
+Grounding and contradiction checks applied
+
+Answer generated
+
+Self-refinement triggered if grounding insufficient
+
+Abstention allowed if grounding fails repeatedly
+
+Final answer returned with evidence
+
+All intermediate decisions are logged.
+
+9. Functional Requirements
+FR-1: Selective Retrieval
+
+The system must decide whether retrieval is necessary for each query.
+
+FR-2: Decision Transparency
+
+The system must log retrieval decisions and confidence estimates.
+
+FR-3: Grounding Validation
+
+The system must reject answers lacking sufficient evidence.
+
+FR-4: Self-Correction
+
+The system must attempt refinement when grounding improves.
+
+FR-5: Abstention
+
+The system must abstain rather than hallucinate when evidence is insufficient.
+
+10. Non-Functional Requirements
+
+Deterministic execution
+
+Reproducible results
+
+Bounded latency
+
+Modular design for ablation
+
+Hardware-agnostic deployment
+
+11. Evaluation Plan
+Datasets
+
+HotpotQA (multi-hop reasoning)
+
+FEVER (fact verification)
+
+Baselines
+
+LLM without retrieval
+
+Static RAG (always retrieve)
+
+ReAct with always-retrieve
+
+Metrics
+
+Exact Match (EM)
+
+F1 Score
+
+Evidence precision
+
+Hallucination rate
+
+Retrieval calls per query
+
+Token usage and latency
+
+Decision-Quality Metrics
+
+Unnecessary Retrieval Rate
+
+Missed Retrieval Rate
+
+Retrieval Decision Accuracy
+
+Oracle policy comparison
+
+12. Ablation Studies
+
+Selective vs always retrieve
+
+With vs without grounding
+
+With vs without self-refinement
+
+With vs without abstention
+
+Single-pass vs agent loop
+
+13. Failure Analysis (Required Section)
+
+Failures are categorized into:
+
+Retrieval failure
+
+Decision failure
+
+Grounding failure
+
+Refinement failure
+
+Each category is quantified and discussed.
+
+14. Risks & Mitigation
+Risk	Mitigation
+Agent instability	Step limits, deterministic logic
+Latency overhead	Selective retrieval
+Overfitting heuristics	Oracle comparison
+Reviewer skepticism	Strong ablations
+15. Deliverables
+
+Fully reproducible codebase
+
+Experiment logs
+
+System diagram
+
+IEEE-formatted research paper
+
+Ablation and failure analysis tables
+
+16. Publication Positioning
+
+Category: AI Systems / Applied NLP
+
+Contribution type: Architecture + evaluation
+
+Target venues: IEEE conferences and journals
+
+Claims are conservative, evidence-driven, and reproducible.
